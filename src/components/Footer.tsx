@@ -4,7 +4,7 @@ import { useSettings } from "../hooks/useSettings";
 
 export default function Footer() {
   const { settings } = useSettings();
-  const phoneWhatsapp = settings.phone_whatsapp || "(86) 99482-0054";
+  const phoneWhatsapp = settings.phone_whatsapp || "(86) 994820054";
   const phoneOffice = settings.phone_office || "(86) 99519-8919";
   const email = settings.email || "contato@mauromoncao.adv.br";
   const address = settings.address || "Parnaíba – PI | Fortaleza – CE";

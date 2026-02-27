@@ -189,14 +189,14 @@ export default function Header() {
           {navLink("/faq", "FAQ")}
           {navLink("/contato", "Contato")}
 
-          {/* Dr. Ben — Assistente Jurídico IA */}
+          {/* Dr. Ben — Assistente Jurídico IA — destaque dourado */}
           <a
             href="/assistente-juridico"
-            className="flex items-center gap-1.5 bg-gradient-to-r from-[#19385C] to-[#0f2d4a] border border-[#E8B84B]/40 text-[#E8B84B] px-3 py-1.5 rounded-full text-xs font-bold hover:border-[#E8B84B] hover:brightness-110 transition-all whitespace-nowrap shadow"
+            className="flex items-center gap-1.5 bg-[#E8B84B] text-[#19385C] px-3 py-1.5 rounded-full text-xs font-black hover:brightness-110 hover:scale-105 transition-all whitespace-nowrap shadow-md border-2 border-[#E8B84B]"
           >
             <Bot className="w-3.5 h-3.5" />
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-            Dr. Ben
+            <span className="w-1.5 h-1.5 rounded-full bg-[#19385C] animate-pulse" />
+            DR. BEN
           </a>
 
           {/* Tributoflix */}
