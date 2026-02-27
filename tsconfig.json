@@ -16,6 +16,6 @@
     "baseUrl": ".",
     "paths": { "@/*": ["./src/*"] }
   },
-  "include": ["src", "server", "shared", "api"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

@@ -9,12 +9,20 @@ export default defineConfig({
     alias: { "@": path.resolve(__dirname, "./src") },
   },
   build: {
-    outDir: "dist/public",
+    outDir: "dist",
     emptyOutDir: true,
+  },
+  preview: {
+    allowedHosts: ["all", ".sandbox.novita.ai"],
+    port: 4173,
+    host: "0.0.0.0",
   },
   server: {
     proxy: {
-      "/api": { target: "http://localhost:3001", changeOrigin: true },
+      "/api": {
+        target: process.env.VITE_API_URL ?? "http://localhost:3001",
+        changeOrigin: true,
+      },
     },
   },
 });
