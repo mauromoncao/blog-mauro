@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import SiteLayout from "../components/Header";
 import { trpc } from "../lib/trpc";
 import { Link } from "wouter";
 import {
@@ -302,7 +301,7 @@ export default function Blog() {
   }, [allPosts, activeCategory, search]);
 
   return (
-    <SiteLayout>
+    <>
       <SEOHead
         title="Blog Jurídico — Artigos sobre Direito Tributário e Empresarial"
         description="Artigos, análises e notícias sobre Direito Tributário, Planejamento Patrimonial, Previdenciário e Empresarial. Conteúdo produzido pela equipe Mauro Monção Advogados."
@@ -973,6 +972,6 @@ export default function Blog() {
           </div>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

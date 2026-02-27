@@ -1,4 +1,3 @@
-import SiteLayout from "../components/Header";
 import { trpc } from "../lib/trpc";
 import { useParams, Link } from "wouter";
 import {
@@ -149,23 +148,20 @@ export default function BlogPost() {
   /* ── Loading ── */
   if (isLoading) {
     return (
-      <SiteLayout>
-        <div className="py-32 text-center">
-          <div
-            className="animate-spin w-10 h-10 border-4 border-t-transparent rounded-full mx-auto"
-            style={{ borderColor: `${GOLD} transparent transparent transparent` }}
-          />
-          <p className="text-gray-400 text-sm mt-4">Carregando artigo...</p>
-        </div>
-      </SiteLayout>
+      <div className="py-32 text-center">
+        <div
+          className="animate-spin w-10 h-10 border-4 border-t-transparent rounded-full mx-auto"
+          style={{ borderColor: `${GOLD} transparent transparent transparent` }}
+        />
+        <p className="text-gray-400 text-sm mt-4">Carregando artigo...</p>
+      </div>
     );
   }
 
   /* ── Not found ── */
   if (!post) {
     return (
-      <SiteLayout>
-        <div className="py-32 text-center max-w-md mx-auto px-4">
+      <div className="py-32 text-center max-w-md mx-auto px-4">
           <BookOpen className="w-14 h-14 mx-auto mb-4 text-gray-300" />
           <h1 className="text-2xl font-bold font-serif mb-3" style={{ color: NAVY }}>
             Artigo não encontrado
@@ -181,7 +177,6 @@ export default function BlogPost() {
             <ArrowLeft className="w-4 h-4" /> Voltar ao Blog
           </Link>
         </div>
-      </SiteLayout>
     );
   }
 
@@ -205,7 +200,7 @@ export default function BlogPost() {
     .slice(0, 4);
 
   return (
-    <SiteLayout>
+    <>
       <SEOHead
         title={post.metaTitle || post.title}
         description={post.metaDescription || post.excerpt || undefined}
@@ -763,6 +758,6 @@ export default function BlogPost() {
           </div>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }
