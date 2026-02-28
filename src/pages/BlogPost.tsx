@@ -204,7 +204,7 @@ export default function BlogPost() {
       <SEOHead
         title={post.metaTitle || post.title}
         description={post.metaDescription || post.excerpt || undefined}
-        canonical={`https://mauromoncao.adv.br/blog/${post.slug}`}
+        canonical={`https://blog.mauromoncao.adv.br/${post.slug}`}
         ogImage={post.coverImage || post.featuredImage || undefined}
         ogType="article"
         author={post.author || "Mauro Monção"}

@@ -305,7 +305,7 @@ export default function Blog() {
       <SEOHead
         title="Blog Jurídico — Artigos sobre Direito Tributário e Empresarial"
         description="Artigos, análises e notícias sobre Direito Tributário, Planejamento Patrimonial, Previdenciário e Empresarial. Conteúdo produzido pela equipe Mauro Monção Advogados."
-        canonical="https://mauromoncao.adv.br/blog"
+        canonical="https://blog.mauromoncao.adv.br"
         keywords="blog jurídico, artigos direito tributário, recuperação tributária, planejamento fiscal, advocacia Piauí"
         jsonLd={[
           buildBreadcrumbLD([
