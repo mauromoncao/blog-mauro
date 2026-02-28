@@ -14,15 +14,15 @@ const blogDropdown = [
 ];
 
 const areasDropdown = [
-  { href: "/areas-de-atuacao",                        label: "Ver todas as Áreas" },
-  { href: "/areas-de-atuacao#tributario",             label: "Direito Tributário" },
-  { href: "/areas-de-atuacao#planejamento-patrimonial", label: "Planejamento Patrimonial" },
-  { href: "/areas-de-atuacao#advocacia-publica",      label: "Advocacia Pública Municipal" },
-  { href: "/areas-de-atuacao#imobiliario",            label: "Direito Imobiliário" },
-  { href: "/areas-de-atuacao#familia-sucessoes",      label: "Família e Sucessões" },
-  { href: "/areas-de-atuacao#ambiental",              label: "Direito Ambiental" },
-  { href: "/areas-de-atuacao#consumidor",             label: "Direito do Consumidor" },
-  { href: "/areas-de-atuacao#previdenciario",         label: "Direito Previdenciário" },
+  { href: "https://www.mauromoncao.adv.br/areas-de-atuacao",                        label: "Ver todas as Áreas" },
+  { href: "https://www.mauromoncao.adv.br/areas-de-atuacao#tributario",             label: "Direito Tributário" },
+  { href: "https://www.mauromoncao.adv.br/areas-de-atuacao#planejamento-patrimonial", label: "Planejamento Patrimonial" },
+  { href: "https://www.mauromoncao.adv.br/areas-de-atuacao#advocacia-publica",      label: "Advocacia Pública Municipal" },
+  { href: "https://www.mauromoncao.adv.br/areas-de-atuacao#imobiliario",            label: "Direito Imobiliário" },
+  { href: "https://www.mauromoncao.adv.br/areas-de-atuacao#familia-sucessoes",      label: "Família e Sucessões" },
+  { href: "https://www.mauromoncao.adv.br/areas-de-atuacao#ambiental",              label: "Direito Ambiental" },
+  { href: "https://www.mauromoncao.adv.br/areas-de-atuacao#consumidor",             label: "Direito do Consumidor" },
+  { href: "https://www.mauromoncao.adv.br/areas-de-atuacao#previdenciario",         label: "Direito Previdenciário" },
 ];
 
 const socialLinks = [
@@ -91,7 +91,7 @@ export default function Header() {
       }`}
     >
       {label}
-    </Link>
+    </a>
   );
 
   return (
@@ -99,17 +99,17 @@ export default function Header() {
       <div className="container flex items-center justify-between h-[72px] gap-4">
 
         {/* ── LOGOMARCA REAL — só a imagem, sem texto inventado ── */}
-        <Link href="/" className="flex items-center shrink-0">
+        <a href="https://www.mauromoncao.adv.br" className="flex items-center shrink-0">
           <img
             src="/logo-mm-crop.png"
             alt="Mauro Monção Advogados Associados"
             className="h-10 w-auto object-contain"
           />
-        </Link>
+        </a>
 
         {/* ── DESKTOP NAV ── */}
         <nav className="hidden xl:flex items-center gap-4 flex-1 justify-end">
-          {navLink("/", "Início")}
+          {navLink("https://www.mauromoncao.adv.br", "Início")}
 
           {/* Dropdown Áreas de Atuação */}
           <div className="relative" ref={areasRef}>
@@ -140,7 +140,7 @@ export default function Header() {
                     }`}
                   >
                     {idx === 0 ? `${item.label} →` : item.label}
-                  </Link>
+                  </a>
                 ))}
               </div>
             )}
@@ -149,7 +149,7 @@ export default function Header() {
           {/* Soluções Jurídicas — domínio oficial */}
           <a href="https://solucoes.mauromoncao.adv.br" className="text-sm font-medium text-white/85 hover:text-[#E8B84B] transition-colors whitespace-nowrap">Soluções Jurídicas</a>
 
-          {navLink("/sobre", "Sobre Nós")}
+          {navLink("https://www.mauromoncao.adv.br/sobre", "Sobre Nós")}
 
           {/* Blog dropdown */}
           <div className="relative" ref={blogRef}>
@@ -180,14 +180,14 @@ export default function Header() {
                     }`}
                   >
                     {idx === 0 ? <><BookOpen className="w-3.5 h-3.5" />{item.label}</> : item.label}
-                  </Link>
+                  </a>
                 ))}
               </div>
             )}
           </div>
 
-          {navLink("/faq", "FAQ")}
-          {navLink("/contato", "Contato")}
+          {navLink("https://www.mauromoncao.adv.br/faq", "FAQ")}
+          {navLink("https://www.mauromoncao.adv.br/contato", "Contato")}
 
           {/* Dr. Ben — Assistente Jurídico IA — destaque dourado */}
           <a
@@ -249,13 +249,13 @@ export default function Header() {
         <div className="xl:hidden bg-[#19385C] border-t border-[#E8B84B]/20 px-4 pb-6">
           <div className="flex flex-col gap-0.5 pt-3">
             {[
-              { href: "/", label: "Início" },
-              { href: "/areas-de-atuacao", label: "Áreas de Atuação" },
+              { href: "https://www.mauromoncao.adv.br", label: "Início" },
+              { href: "https://www.mauromoncao.adv.br/areas-de-atuacao", label: "Áreas de Atuação" },
               { href: "https://solucoes.mauromoncao.adv.br", label: "Soluções Jurídicas" },
-              { href: "/sobre", label: "Sobre Nós" },
+              { href: "https://www.mauromoncao.adv.br/sobre", label: "Sobre Nós" },
               { href: "https://blog.mauromoncao.adv.br", label: "Blog" },
-              { href: "/faq", label: "FAQ" },
-              { href: "/contato", label: "Contato" },
+              { href: "https://www.mauromoncao.adv.br/faq", label: "FAQ" },
+              { href: "https://www.mauromoncao.adv.br/contato", label: "Contato" },
               { href: "https://drben.mauromoncao.adv.br", label: "🤖 Dr. Ben — Assistente IA" },
             ].map((l) => (
               <Link
@@ -265,7 +265,7 @@ export default function Header() {
                 className="py-3 border-b border-white/10 text-white/85 text-sm font-medium hover:text-[#E8B84B]"
               >
                 {l.label}
-              </Link>
+              </a>
             ))}
             <a
               href={`https://wa.me/${phone.replace(/\D/g, "")}`}
