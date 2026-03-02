@@ -91,7 +91,7 @@ export default function Header() {
       }`}
     >
       {label}
-    </a>
+    </Link>
   );
 
   return (
@@ -140,7 +140,7 @@ export default function Header() {
                     }`}
                   >
                     {idx === 0 ? `${item.label} →` : item.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
@@ -180,7 +180,7 @@ export default function Header() {
                     }`}
                   >
                     {idx === 0 ? <><BookOpen className="w-3.5 h-3.5" />{item.label}</> : item.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
@@ -280,7 +280,7 @@ export default function Header() {
                 className="py-3 border-b border-white/10 text-white/85 text-sm font-medium hover:text-[#E8B84B]"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
             <a
               href={`https://wa.me/${phone.replace(/\D/g, "")}`}
