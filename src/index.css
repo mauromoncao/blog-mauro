@@ -39,4 +39,13 @@ body {
 .animate-fade-in {
   animation: fade-in 0.5s ease both;
 }
-/* force redeploy Mon Mar  2 17:30:33 UTC 2026 */
+
+/* Justificação do conteúdo dos artigos do blog */
+.prose p {
+  text-align: justify;
+  hyphens: auto;
+}
+.prose li {
+  text-align: justify;
+}
+

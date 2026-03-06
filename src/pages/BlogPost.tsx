@@ -238,19 +238,17 @@ export default function BlogPost() {
       />
 
       {/* ══════════════════════════════════════════
-          HERO
+          HERO — igual ao da página Blog (padrão do site)
       ══════════════════════════════════════════ */}
       <section
         className="relative text-white overflow-hidden"
-        style={{ minHeight: "320px", display: "flex", alignItems: "flex-end" }}
+        style={{
+          background: `linear-gradient(135deg, ${DARK} 0%, ${NAVY} 60%, #1e4a78 100%)`,
+          paddingTop: "4rem",
+          paddingBottom: "4rem",
+        }}
       >
-        {/* Background — sempre gradiente limpo, sem imagem sobreposta */}
-        <div
-          className="absolute inset-0"
-          style={{ background: `linear-gradient(135deg, ${DARK} 0%, ${NAVY} 60%, #1e4a7a 100%)` }}
-        />
-
-        {/* Subtle grid */}
+        {/* Grade sutil */}
         <div
           className="absolute inset-0 opacity-[0.04] pointer-events-none"
           style={{
@@ -259,27 +257,22 @@ export default function BlogPost() {
           }}
         />
 
-        {/* Content */}
-        <div className="container max-w-5xl relative z-10 py-12 lg:py-16">
+        <div className="container max-w-5xl relative z-10">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-xs text-white/50 mb-6">
             <Link href="/" className="hover:text-white/80 transition-colors">Início</Link>
             <ChevronRight className="w-3 h-3" />
             <Link href="/blog" className="hover:text-white/80 transition-colors">Blog</Link>
             <ChevronRight className="w-3 h-3" />
-            <span className="text-white/70 line-clamp-1 max-w-[200px]">{post.title}</span>
+            <span className="text-white/70 line-clamp-1 max-w-xs">{post.title}</span>
           </nav>
 
-          {/* Category badge */}
+          {/* Badge de categoria */}
           {categoryLabel && (
             <div className="mb-4">
               <span
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider"
-                style={{
-                  background: `${GOLD}20`,
-                  border: `1px solid ${GOLD}50`,
-                  color: GOLD,
-                }}
+                style={{ background: `${GOLD}20`, border: `1px solid ${GOLD}50`, color: GOLD }}
               >
                 <Tag className="w-3 h-3" />
                 {categoryLabel}
@@ -287,23 +280,8 @@ export default function BlogPost() {
             </div>
           )}
 
-          {/* Title */}
-          <h1
-            className="font-serif font-bold text-white leading-tight mb-5 max-w-3xl"
-            style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)" }}
-          >
-            {post.title}
-          </h1>
-
-          {/* Excerpt */}
-          {post.excerpt && (
-            <p className="text-white/70 text-base lg:text-lg leading-relaxed mb-6 max-w-2xl">
-              {post.excerpt}
-            </p>
-          )}
-
-          {/* Meta row */}
-          <div className="flex flex-wrap items-center gap-5 text-white/55 text-sm">
+          {/* Meta: autor, data, tempo de leitura */}
+          <div className="flex flex-wrap items-center gap-5 text-white/55 text-sm mt-2">
             {(post as any).authorName && (
               <span className="flex items-center gap-1.5">
                 <User className="w-4 h-4" />
@@ -313,11 +291,7 @@ export default function BlogPost() {
             {date && (
               <span className="flex items-center gap-1.5">
                 <Calendar className="w-4 h-4" />
-                {new Date(date).toLocaleDateString("pt-BR", {
-                  day: "2-digit",
-                  month: "long",
-                  year: "numeric",
-                })}
+                {new Date(date).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" })}
               </span>
             )}
             <span className="flex items-center gap-1.5">
@@ -329,45 +303,50 @@ export default function BlogPost() {
       </section>
 
       {/* ══════════════════════════════════════════
-          CONTEÚDO + SIDEBAR
+          ARTIGO + SIDEBAR
+          Sequência: Imagem Capa → Título → Subtítulo → Conteúdo
       ══════════════════════════════════════════ */}
-      <section className="py-12 bg-white">
+      <section className="py-10 bg-white">
         <div className="container max-w-6xl">
           <div className="grid lg:grid-cols-[1fr_300px] gap-12 items-start">
 
-            {/* ── ARTICLE CONTENT ── */}
+            {/* ── CONTEÚDO PRINCIPAL ── */}
             <article>
-              {/* Imagem de capa — exibida no topo do artigo, não como background do hero */}
+
+              {/* 1. IMAGEM DE CAPA */}
               {post.coverImage && (
                 <div className="mb-8 rounded-2xl overflow-hidden shadow-lg">
                   <img
                     src={post.coverImage}
-                    alt={post.coverImageAlt || post.title}
+                    alt={(post as any).coverImageAlt || post.title}
                     className="w-full object-cover"
-                    style={{ maxHeight: "480px" }}
+                    style={{ maxHeight: "500px", width: "100%" }}
                   />
                 </div>
               )}
 
-              {/* Excerpt box com borda dourada */}
-              {post.excerpt && (
-                <div
-                  className="rounded-xl p-6 mb-8"
-                  style={{
-                    background: `${GOLD}08`,
-                    borderLeft: `4px solid ${GOLD}`,
-                  }}
+              {/* 2. TÍTULO */}
+              <h1
+                className="font-serif font-bold leading-tight mb-4"
+                style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", color: NAVY }}
+              >
+                {post.title}
+              </h1>
+
+              {/* 3. SUBTÍTULO */}
+              {(post as any).subtitle && (
+                <p
+                  className="text-lg font-medium leading-relaxed mb-6"
+                  style={{ color: "#4a6580", borderLeft: `4px solid ${GOLD}`, paddingLeft: "1rem" }}
                 >
-                  <p
-                    className="text-base font-medium leading-relaxed italic"
-                    style={{ color: NAVY }}
-                  >
-                    "{post.excerpt}"
-                  </p>
-                </div>
+                  {(post as any).subtitle}
+                </p>
               )}
 
-              {/* Main content */}
+              {/* Separador dourado */}
+              <div className="mb-8" style={{ height: "2px", background: `linear-gradient(to right, ${GOLD}, transparent)` }} />
+
+              {/* 4. CONTEÚDO DA MATÉRIA — justificado */}
               <div
                 className="prose prose-lg max-w-none
                   prose-headings:font-serif prose-headings:text-[#19385C]
@@ -375,8 +354,8 @@ export default function BlogPost() {
                   prose-h2:border-b-2 prose-h2:border-[#E8B84B]/30
                   prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
                   prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-2
-                  prose-p:text-gray-600 prose-p:leading-relaxed prose-p:mb-5
-                  prose-li:text-gray-600 prose-li:mb-2
+                  prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-5
+                  prose-li:text-gray-700 prose-li:mb-2
                   prose-strong:text-[#19385C] prose-strong:font-semibold
                   prose-a:text-[#E8B84B] prose-a:no-underline hover:prose-a:underline
                   prose-ol:pl-6 prose-ul:pl-6
@@ -384,6 +363,7 @@ export default function BlogPost() {
                   prose-blockquote:bg-[#E8B84B]/05 prose-blockquote:rounded-r-xl
                   prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:not-italic
                   prose-code:text-[#E8B84B] prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded"
+                style={{ textAlign: "justify" }}
                 dangerouslySetInnerHTML={{ __html: post.content || "" }}
               />
 
