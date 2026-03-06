@@ -152,21 +152,31 @@ const DEMO_FAQS = [
 // API FETCHERS
 // ──────────────────────────────────────────────────────────────
 
+// Helper: extrai array de resultado da resposta tRPC (com ou sem wrapper .json)
+function extractArray(data: any): any[] {
+  // Formato batch: [{ result: { data: { json: [...] } } }]
+  if (Array.isArray(data) && data[0]?.result?.data) {
+    const inner = data[0].result.data;
+    return Array.isArray(inner) ? inner : (inner?.json ?? []);
+  }
+  // Formato direto: { result: { data: [...] } } ou { result: { data: { json: [...] } } }
+  const inner = data?.result?.data;
+  if (!inner) return [];
+  return Array.isArray(inner) ? inner : (inner?.json ?? []);
+}
+
 // Buscar posts publicados — usa demo se não houver API
 export async function fetchPublicPosts() {
   try {
     const res = await fetch(`${API_URL}/api/trpc/blog.listPublic`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(10000),
     });
     if (!res.ok) return DEMO_POSTS;
     const data = await res.json();
-    // Suporta formato { result: { data: [...] } } ou { result: { data: { json: [...] } } }
-    const posts = data?.result?.data?.json ?? data?.result?.data ?? [];
-    const filtered = Array.isArray(posts)
-      ? posts.filter((p: any) => p.status === "published" || p.isPublished)
-      : [];
-    return filtered.length > 0 ? filtered : DEMO_POSTS;
+    const posts = extractArray(data);
+    return posts.length > 0 ? posts : DEMO_POSTS;
   } catch {
     return DEMO_POSTS;
   }
@@ -178,10 +188,11 @@ export async function fetchFaqs() {
     const res = await fetch(`${API_URL}/api/trpc/faq.listPublic`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(10000),
     });
     if (!res.ok) return DEMO_FAQS;
     const data = await res.json();
-    const faqs = data?.result?.data?.json ?? data?.result?.data ?? [];
+    const faqs = extractArray(data);
     const filtered = Array.isArray(faqs) ? faqs.filter((f: any) => f.isPublished) : [];
     return filtered.length > 0 ? filtered : DEMO_FAQS;
   } catch {
@@ -189,8 +200,27 @@ export async function fetchFaqs() {
   }
 }
 
-// Buscar post por slug
+// Buscar post por slug — tenta API dedicada, depois fallback na lista
 export async function fetchPostBySlug(slug: string) {
+  try {
+    const encodedInput = encodeURIComponent(JSON.stringify({ json: slug }));
+    const res = await fetch(
+      `${API_URL}/api/trpc/blog.getBySlug?input=${encodedInput}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(10000),
+      }
+    );
+    if (res.ok) {
+      const data = await res.json();
+      const post = data?.result?.data ?? null;
+      if (post) return post;
+    }
+  } catch {
+    // fallback abaixo
+  }
+  // Fallback: buscar na lista completa
   try {
     const posts = await fetchPublicPosts();
     return posts.find((p: any) => p.slug === slug) ?? null;

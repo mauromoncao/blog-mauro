@@ -1,12 +1,12 @@
-import { trpc } from "../lib/trpc";
 import { useParams, Link } from "wouter";
 import {
   Calendar, ArrowLeft, User, Tag, ArrowRight, BookOpen,
   ChevronRight, Clock, MessageCircle, Share2, Star,
   Copy, Check, Facebook, Twitter,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SEOHead, { buildArticleLD, buildBreadcrumbLD } from "../components/SEOHead";
+import { fetchPostBySlug, fetchPublicPosts } from "../lib/api";
 
 const GOLD = "#E8B84B";
 const NAVY = "#19385C";
@@ -140,10 +140,17 @@ function RelatedCard({ post }: { post: any }) {
 ────────────────────────────────────────────── */
 export default function BlogPost() {
   const params = useParams<{ slug: string }>();
-  const { data: post, isLoading } = trpc.blog.getBySlug.useQuery({
-    slug: params.slug || "",
-  });
-  const { data: allPosts } = trpc.blog.listPublic.useQuery();
+  const [post, setPost] = useState<any>(undefined);
+  const [isLoading, setIsLoading] = useState(true);
+  const [allPosts, setAllPosts] = useState<any[]>([]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchPostBySlug(params.slug || "")
+      .then((p) => { setPost(p); setIsLoading(false); })
+      .catch(() => { setPost(null); setIsLoading(false); });
+    fetchPublicPosts().then(setAllPosts);
+  }, [params.slug]);
 
   /* ── Loading ── */
   if (isLoading) {

@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { trpc } from "../lib/trpc";
+import { useState, useMemo, useEffect } from "react";
+import { fetchPublicPosts, fetchFaqs } from "../lib/api";
 import { Link } from "wouter";
 import {
   Calendar, ArrowRight, Tag, BookOpen, Search, ChevronRight,
@@ -271,11 +271,16 @@ function HighlightCard({ post, variant = "small", badge }: { post: any; variant?
    MAIN PAGE
 ────────────────────────────────────────────── */
 export default function Blog() {
-  const { data: posts } = trpc.blog.listPublic.useQuery();
-  const { data: faqData } = trpc.faq.listPublic.useQuery();
+  const [posts, setPosts] = useState<any[]>([]);
+  const [faqData, setFaqData] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetchPublicPosts().then(setPosts);
+    fetchFaqs().then(setFaqData);
+  }, []);
 
   const allPosts: any[] = posts || [];
 
