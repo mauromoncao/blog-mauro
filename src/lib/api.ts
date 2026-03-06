@@ -1,5 +1,5 @@
 // URL da API do painel admin — configurada via variável de ambiente na Vercel
-export const API_URL = import.meta.env.VITE_API_URL ?? "";
+export const API_URL = import.meta.env.VITE_API_URL ?? "https://blog-painel-admin.vercel.app";
 
 // ──────────────────────────────────────────────────────────────
 // POSTS DEMO — exibidos quando não há API conectada
@@ -154,7 +154,6 @@ const DEMO_FAQS = [
 
 // Buscar posts publicados — usa demo se não houver API
 export async function fetchPublicPosts() {
-  if (!API_URL) return DEMO_POSTS;
   try {
     const res = await fetch(`${API_URL}/api/trpc/blog.listPublic`, {
       method: "GET",
@@ -162,8 +161,11 @@ export async function fetchPublicPosts() {
     });
     if (!res.ok) return DEMO_POSTS;
     const data = await res.json();
-    const posts = data?.result?.data ?? [];
-    const filtered = posts.filter((p: any) => p.status === "published" || p.isPublished);
+    // Suporta formato { result: { data: [...] } } ou { result: { data: { json: [...] } } }
+    const posts = data?.result?.data?.json ?? data?.result?.data ?? [];
+    const filtered = Array.isArray(posts)
+      ? posts.filter((p: any) => p.status === "published" || p.isPublished)
+      : [];
     return filtered.length > 0 ? filtered : DEMO_POSTS;
   } catch {
     return DEMO_POSTS;
@@ -172,7 +174,6 @@ export async function fetchPublicPosts() {
 
 // Buscar FAQs publicadas — usa demo se não houver API
 export async function fetchFaqs() {
-  if (!API_URL) return DEMO_FAQS;
   try {
     const res = await fetch(`${API_URL}/api/trpc/faq.listPublic`, {
       method: "GET",
@@ -180,8 +181,8 @@ export async function fetchFaqs() {
     });
     if (!res.ok) return DEMO_FAQS;
     const data = await res.json();
-    const faqs = data?.result?.data ?? [];
-    const filtered = faqs.filter((f: any) => f.isPublished);
+    const faqs = data?.result?.data?.json ?? data?.result?.data ?? [];
+    const filtered = Array.isArray(faqs) ? faqs.filter((f: any) => f.isPublished) : [];
     return filtered.length > 0 ? filtered : DEMO_FAQS;
   } catch {
     return DEMO_FAQS;
