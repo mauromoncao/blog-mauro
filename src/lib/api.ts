@@ -166,6 +166,7 @@ function extractArray(data: any): any[] {
 }
 
 // Buscar posts publicados — usa demo se não houver API
+// NOTA: coverImage pode ser URL real, '__base64__' (imagem existe mas grande), ou null
 export async function fetchPublicPosts() {
   try {
     const res = await fetch(`${API_URL}/api/trpc/blog.listPublic`, {
@@ -176,7 +177,12 @@ export async function fetchPublicPosts() {
     if (!res.ok) return DEMO_POSTS;
     const data = await res.json();
     const posts = extractArray(data);
-    return posts.length > 0 ? posts : DEMO_POSTS;
+    // Normalizar: '__base64__' → null (na listagem usamos placeholder)
+    const normalized = posts.map((p: any) => ({
+      ...p,
+      coverImage: p.coverImage === "__base64__" ? null : p.coverImage,
+    }));
+    return normalized.length > 0 ? normalized : DEMO_POSTS;
   } catch {
     return DEMO_POSTS;
   }
