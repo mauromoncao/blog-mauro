@@ -238,17 +238,18 @@ export default function BlogPost() {
       />
 
       {/* ══════════════════════════════════════════
-          HERO — igual ao da página Blog (padrão do site)
+          HERO — IDÊNTICO ao da página Blog.tsx
+          Sempre fixo: "Blog Jurídico / Mauro Monção"
       ══════════════════════════════════════════ */}
       <section
         className="relative text-white overflow-hidden"
         style={{
           background: `linear-gradient(135deg, ${DARK} 0%, ${NAVY} 60%, #1e4a78 100%)`,
-          paddingTop: "4rem",
-          paddingBottom: "4rem",
+          paddingTop: "5rem",
+          paddingBottom: "5rem",
         }}
       >
-        {/* Grade sutil */}
+        {/* Grade sutil — igual ao Blog.tsx */}
         <div
           className="absolute inset-0 opacity-[0.04] pointer-events-none"
           style={{
@@ -257,9 +258,9 @@ export default function BlogPost() {
           }}
         />
 
-        <div className="container max-w-5xl relative z-10">
+        <div className="container relative z-10">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-xs text-white/50 mb-6">
+          <nav className="flex items-center gap-2 text-xs text-white/50 mb-8">
             <Link href="/" className="hover:text-white/80 transition-colors">Início</Link>
             <ChevronRight className="w-3 h-3" />
             <Link href="/blog" className="hover:text-white/80 transition-colors">Blog</Link>
@@ -267,38 +268,29 @@ export default function BlogPost() {
             <span className="text-white/70 line-clamp-1 max-w-xs">{post.title}</span>
           </nav>
 
-          {/* Badge de categoria */}
-          {categoryLabel && (
-            <div className="mb-4">
-              <span
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider"
-                style={{ background: `${GOLD}20`, border: `1px solid ${GOLD}50`, color: GOLD }}
-              >
-                <Tag className="w-3 h-3" />
-                {categoryLabel}
-              </span>
-            </div>
-          )}
-
-          {/* Meta: autor, data, tempo de leitura */}
-          <div className="flex flex-wrap items-center gap-5 text-white/55 text-sm mt-2">
-            {(post as any).authorName && (
-              <span className="flex items-center gap-1.5">
-                <User className="w-4 h-4" />
-                {(post as any).authorName}
-              </span>
-            )}
-            {date && (
-              <span className="flex items-center gap-1.5">
-                <Calendar className="w-4 h-4" />
-                {new Date(date).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" })}
-              </span>
-            )}
-            <span className="flex items-center gap-1.5">
-              <Clock className="w-4 h-4" />
-              8 min de leitura
-            </span>
+          {/* Badge — igual ao Blog.tsx */}
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-[0.2em] mb-6"
+            style={{ background: `${GOLD}15`, border: `1px solid ${GOLD}50`, color: GOLD }}
+          >
+            <BookOpen className="w-3.5 h-3.5" />
+            Canal de Conhecimento Jurídico
           </div>
+
+          {/* Título fixo — igual ao Blog.tsx */}
+          <h2
+            className="font-serif font-bold text-white leading-tight mb-4"
+            style={{ fontSize: "clamp(2.2rem, 4vw, 3.25rem)" }}
+          >
+            Blog Jurídico
+            <br />
+            <em className="not-italic" style={{ color: GOLD }}>Mauro Monção</em>
+          </h2>
+
+          <p className="text-white/70 text-base leading-relaxed max-w-xl">
+            Artigos aprofundados, análises legais e orientações práticas sobre
+            Tributário, Previdenciário, Bancário, Imobiliário e Empresarial.
+          </p>
         </div>
       </section>
 
