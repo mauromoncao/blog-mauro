@@ -242,32 +242,13 @@ export default function BlogPost() {
       ══════════════════════════════════════════ */}
       <section
         className="relative text-white overflow-hidden"
-        style={{ minHeight: hasCover ? "520px" : "320px", display: "flex", alignItems: "flex-end" }}
+        style={{ minHeight: "320px", display: "flex", alignItems: "flex-end" }}
       >
-        {/* Background */}
-        {hasCover ? (
-          <>
-            <img
-              src={post.coverImage!}
-              alt={post.title}
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(to top, rgba(7,24,46,0.97) 0%, rgba(7,24,46,0.82) 50%, rgba(7,24,46,0.3) 100%)",
-              }}
-            />
-          </>
-        ) : (
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(135deg, ${DARK}, ${NAVY})`,
-            }}
-          />
-        )}
+        {/* Background — sempre gradiente limpo, sem imagem sobreposta */}
+        <div
+          className="absolute inset-0"
+          style={{ background: `linear-gradient(135deg, ${DARK} 0%, ${NAVY} 60%, #1e4a7a 100%)` }}
+        />
 
         {/* Subtle grid */}
         <div
@@ -356,6 +337,18 @@ export default function BlogPost() {
 
             {/* ── ARTICLE CONTENT ── */}
             <article>
+              {/* Imagem de capa — exibida no topo do artigo, não como background do hero */}
+              {post.coverImage && (
+                <div className="mb-8 rounded-2xl overflow-hidden shadow-lg">
+                  <img
+                    src={post.coverImage}
+                    alt={post.coverImageAlt || post.title}
+                    className="w-full object-cover"
+                    style={{ maxHeight: "480px" }}
+                  />
+                </div>
+              )}
+
               {/* Excerpt box com borda dourada */}
               {post.excerpt && (
                 <div
