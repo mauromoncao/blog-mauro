@@ -1,5 +1,5 @@
-// URL da API do painel admin — configurada via variável de ambiente na Vercel
-export const API_URL = import.meta.env.VITE_API_URL ?? "https://blog-painel-admin.vercel.app";
+// URL da API do painel admin — configurada via variável de ambiente no Cloudflare Pages
+export const API_URL = import.meta.env.VITE_API_URL ?? "https://blog-painel.mauromoncao.adv.br";
 
 // ──────────────────────────────────────────────────────────────
 // POSTS DEMO — exibidos quando não há API conectada
