@@ -3,3 +3,10 @@ dist/
 .env
 .DS_Store
 *.log
+
+# Segurança adicional
+secrets/
+credentials/
+private/
+*.pem
+*.key
